@@ -1,5 +1,5 @@
 """
-ASGI config for Posts project.
+ASGI config for posts project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

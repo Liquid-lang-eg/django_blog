@@ -1,5 +1,5 @@
 """
-WSGI config for Posts project.
+WSGI config for posts project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

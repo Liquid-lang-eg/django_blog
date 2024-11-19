@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import User
 
-@admin.register(Post)
+@admin.register(User)
 class PostAdmin(admin.ModelAdmin):
     pass
+

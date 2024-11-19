@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+<div style="margin-left:15px">
+    <h2>{{ post.title }}</h2>
+    <p>posted by: {{post.user}}</p>
+    {% if post.if_edited %}
+        <p><em>(edited)</em></p>
+    {% endif %}
+    <p>{{ post.text }}</p>
+        {% if post.user == request.user %}
+            <a href="{% url 'blog:edit_post' pk=post.pk %}" class="btn btn-danger">Edit Post</a>
+        {% endif %}
+        {% if request.user == post.user %}
+            <a href="{% url 'blog:delete_post' pk=post.pk %}" class="btn btn-danger">Удалить</a>
+        {% endif %}
+    <p><small>{{ post.pub_date}}</small></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <p><a href="{% url 'blog:add_comment' post.id %}">Reply</a></p>
+</div>
+<div>
+    {% for comment in comments %}
+        <div style="margin-left:30px">
+            <p><small>Reply</small></p>
+            <p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
+            <p><small>Posted on: {{ comment.pub_date }}</small></p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <p><a href="{% url 'blog:add_comment' post.id %}">Reply</a></p>
+
+            {% if comment.replies.all %}
+
+                {% for reply in comment.replies.all %}
+                    <div style="margin-left:45px">
+                        <p><small>Reply to reply</small></p>
+                        <p><strong>{{reply.author}}</strong>: {{reply.content}}</p>
+                        <p><small>Posted on: {{ reply.pub_date }}</small></p>
+                    <div>
+                {% endfor %}
+            {% endif %}
+        <div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'blog:post_list' %}" class="btn btn-danger">Back to all posts</a>
+{% endblock %}
