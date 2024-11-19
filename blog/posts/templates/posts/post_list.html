@@ -14,7 +14,7 @@
             <a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a>
             <p>{{post.text|truncatewords:20}}</p>
             {% if post.if_edited %}
-            <p><em>(edited)</em></p>
+            <p><em>edited at: {{post.edited_at}}</em></p>
             {% endif %}
             <p><small>Created by: {{post.user}}</small></p>
             <p><small>Created at: {{post.pub_date}}</small></p>

@@ -6,7 +6,7 @@
     <h2>{{ post.title }}</h2>
     <p>posted by: {{post.user}}</p>
     {% if post.if_edited %}
-        <p><em>(edited)</em></p>
+        <p><em>edited at: {{post.edited_at}}</em></p>
     {% endif %}
     <p>{{ post.text }}</p>
         {% if post.user == request.user %}

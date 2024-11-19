@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.utils.timezone import now
 
 
 def post_list(request):
@@ -71,6 +72,7 @@ def edit_post(request, pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.if_edited = True
+            post.edited_at = now()
             form.save()
             return redirect('blog:post_detail', pk=post.pk)
     else:
