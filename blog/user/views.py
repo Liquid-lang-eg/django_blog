@@ -1,9 +1,11 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-
+from django.views.generic import CreateView
+from .forms import UserCreationForm
+from .models import User
+from django.urls import reverse_lazy
 from .forms import SignUpForm
-
 
 def sign_in_view(request):
     if request.user.is_authenticated:
@@ -48,3 +50,9 @@ def sign_up_view(request):
         'sign_up.html',
         context={'form': form}
     )
+
+# class SignUpView(CreateView):
+#
+#     model = User
+#     template_name = 'sign_up.html'
+#     success_url = reverse_lazy('user:sign_in')
